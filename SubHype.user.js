@@ -14,17 +14,31 @@
 var hypeText = 'sub hype!'; // change this to whatever you want your sub hype to be
 
 function onClick() {
-    var input = $('.chat-input textarea')[0];
-    input.value = hypeText;
+    $('.chat-input textarea')[0].value = hypeText;
 }
 
 function addButton(container) {
-    var button = document.createElement('button');
-    button.innerHTML = 'Hype';
-    button.className = 'button';
-    button.onclick = onClick;
 
-    container[0].appendChild(button);
+    var textSpan = document.createElement('span');
+    textSpan.className = 'tw-button__text';
+    textSpan.innerHTML = 'Hype';
+
+    var hypeButton = document.createElement('button');
+    hypeButton.className = 'tw-button';
+    hypeButton.style.marginRight = '1em';
+    hypeButton.onclick = onClick;
+
+    hypeButton.appendChild(textSpan);
+
+    var flexRow = document.createElement('div');
+    flexRow.className = 'tw-flex tw-flex-row';
+
+    flexRow.appendChild(hypeButton);
+
+    var sendButton = $("[data-test-selector='chat-send-button']")[0];
+    flexRow.appendChild(sendButton);
+
+    container[0].appendChild(flexRow);
 }
 
-waitForKeyElements('.chat-buttons-container', addButton, bWaitOnce=true);
+waitForKeyElements('.chat-input__buttons-container', addButton, bWaitOnce=true);
